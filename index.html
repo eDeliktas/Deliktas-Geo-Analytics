@@ -83,7 +83,6 @@
             -webkit-text-fill-color: white !important;
         }
 
-        /* Checkbox Styling */
         input[type="checkbox"] {
             accent-color: #3b82f6;
         }
@@ -193,7 +192,7 @@
                     
                     <div id="formContainer" class="transition-all duration-500 text-center max-w-2xl mx-auto">
                         
-                        <!-- TAB BUTTONS (SUBSCRIBE / UNSUBSCRIBE) -->
+                        <!-- TAB BUTTONS -->
                         <div class="flex justify-center mb-8 bg-slate-900/50 p-1 rounded-lg border border-slate-700/50 max-w-xs mx-auto">
                             <button type="button" id="tabSubscribe" class="flex-1 py-2 px-4 rounded-md bg-slate-800 text-white text-sm font-semibold shadow-sm transition-all border border-slate-600">Subscribe</button>
                             <button type="button" id="tabUnsubscribe" class="flex-1 py-2 px-4 rounded-md text-slate-400 hover:text-slate-200 text-sm font-medium transition-all border border-transparent">Unsubscribe</button>
@@ -271,7 +270,9 @@
                                         <input type="checkbox" id="dataConsent" required class="w-5 h-5 rounded border-slate-600 bg-slate-800 text-brand-blue focus:ring-brand-blue focus:ring-offset-slate-900 transition-colors cursor-pointer">
                                     </div>
                                     <div class="flex-col">
-                                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">I agree to the Data Privacy & Security Policy.</span>
+                                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
+                                            I agree to the <a href="#" id="openPrivacyModal" class="text-brand-blue hover:text-blue-400 underline decoration-brand-blue/30 underline-offset-2 transition-colors">Data Privacy & Security Policy</a>.
+                                        </span>
                                         <p class="text-xs text-slate-500 mt-1 leading-relaxed">
                                             <i class="fa-solid fa-lock text-slate-600 mr-1"></i> Your email will only be used for mega-fire alerts. We keep your data strictly confidential and will never share it with 3rd parties.
                                         </p>
@@ -361,6 +362,56 @@
         </div>
     </footer>
 
+    <!-- PRIVACY POLICY MODAL -->
+    <div id="privacyModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <!-- Backdrop -->
+        <div id="modalBackdrop" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity cursor-pointer"></div>
+        
+        <!-- Modal Box -->
+        <div class="relative bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col mx-4 transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between p-6 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-shield-halved text-brand-blue text-xl"></i>
+                    <h3 class="text-xl font-display font-bold text-white">Data Privacy & Security Policy</h3>
+                </div>
+                <button type="button" id="closeModalBtn" class="text-slate-400 hover:text-white transition-colors p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Body -->
+            <div class="p-6 overflow-y-auto text-slate-300 text-sm leading-relaxed space-y-5 custom-scrollbar">
+                <div>
+                    <h4 class="text-white font-semibold text-base mb-1">1. Data Collection</h4>
+                    <p>Deliktas Geo-Analytics ("we", "our", "the system") only collects your email address and your continent preferences. We do not collect names, physical addresses, IP addresses, or any other personal identifiable information (PII).</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-base mb-1">2. Purpose of Use</h4>
+                    <p>Your email address is strictly used for one purpose: sending you automated satellite-based mega-fire alerts based on the regions you have selected.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-base mb-1">3. Data Protection & Sharing</h4>
+                    <p>We take your privacy seriously. Your data is stored securely in our private database. We will <strong>never</strong> sell, rent, or share your email address with third parties, marketing agencies, or advertisers under any circumstances.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-base mb-1">4. Your Rights (Right to be Forgotten)</h4>
+                    <p>You have full control over your data. You can completely remove your email address from our database at any time by using the "Unsubscribe" tab on our website. Once you unsubscribe, your record is permanently deleted from our active mailing list.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-base mb-1">5. No Warranty & Liability</h4>
+                    <p>Deliktas Geo-Analytics is a free, automated system utilizing raw public data (NASA FIRMS, Open-Meteo). We do not guarantee the absolute accuracy of the fire alerts, nor do we accept liability for any damages, losses, or actions taken based on these emails.</p>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-5 border-t border-slate-800 bg-slate-800/30 rounded-b-2xl flex justify-end">
+                <button type="button" id="acceptModalBtn" class="px-6 py-2.5 bg-brand-blue hover:bg-blue-600 text-white font-medium rounded-lg shadow-lg shadow-brand-blue/20 transition-all">Understood & Close</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // --- GOOGLE SHEETS INTEGRATION URL ---
         const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPVC7MgZB_wU8snOBd41sMUa77BYN9gWwL6W4oWI2eLCCHIU98IELshLomzzDgwWTr9A/exec';
@@ -385,35 +436,68 @@
             const btnIcon = document.getElementById('btnIcon');
             const consentWrapper = document.getElementById('consentWrapper');
             const dataConsent = document.getElementById('dataConsent');
-            const continentWrapper = document.getElementById('continentWrapper'); // Yeni eklendi
+            const continentWrapper = document.getElementById('continentWrapper');
             
             // Elements for dynamic Success Message
             const successTitle = document.getElementById('successTitle');
             const successDesc = document.getElementById('successDesc');
             const nextStepBox = document.getElementById('nextStepBox');
 
+            // --- MODAL ELEMENTS & LOGIC ---
+            const privacyModal = document.getElementById('privacyModal');
+            const modalContent = document.getElementById('modalContent');
+            const openPrivacyModalBtn = document.getElementById('openPrivacyModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const acceptModalBtn = document.getElementById('acceptModalBtn');
+            const modalBackdrop = document.getElementById('modalBackdrop');
+
+            function openModal() {
+                privacyModal.classList.remove('hidden');
+                privacyModal.classList.add('flex');
+                // Timeout is needed to trigger CSS transitions after display change
+                setTimeout(() => {
+                    modalContent.classList.remove('opacity-0', 'scale-95');
+                    modalContent.classList.add('opacity-100', 'scale-100');
+                }, 10);
+            }
+
+            function closeModal() {
+                modalContent.classList.remove('opacity-100', 'scale-100');
+                modalContent.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    privacyModal.classList.add('hidden');
+                    privacyModal.classList.remove('flex');
+                }, 300);
+            }
+
+            // Open Modal Link (inside the checkbox label)
+            openPrivacyModalBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Sayfanın yukarı zıplamasını engelle
+                e.stopPropagation(); // Checkbox'ın tıklanmasını engelle
+                openModal();
+            });
+
+            // Close Modal Triggers
+            closeModalBtn.addEventListener('click', closeModal);
+            acceptModalBtn.addEventListener('click', closeModal);
+            modalBackdrop.addEventListener('click', closeModal);
+
+
             // Current Mode State
-            let currentMode = 'subscribe'; // can be 'subscribe' or 'unsubscribe'
+            let currentMode = 'subscribe';
 
             // --- TAB SWITCHING LOGIC ---
             tabSubscribe.addEventListener('click', () => {
                 currentMode = 'subscribe';
-                
-                // Style Tabs
                 tabSubscribe.className = "flex-1 py-2 px-4 rounded-md bg-slate-800 text-white text-sm font-semibold shadow-sm transition-all border border-slate-600";
                 tabUnsubscribe.className = "flex-1 py-2 px-4 rounded-md text-slate-400 hover:text-slate-200 text-sm font-medium transition-all border border-transparent";
-                
-                // Form Content
                 formTitle.textContent = "Join the Early Warning Network";
                 formDescription.textContent = "Get notified in seconds when critical wildfires start. Leave your email address and start receiving free intelligence now.";
                 formIcon.className = "fa-regular fa-bell text-3xl text-brand-orange";
-                
-                // Button Styling
                 submitBtn.className = "w-full sm:w-auto px-8 py-4 bg-brand-blue hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg shadow-brand-blue/30 transition-all flex items-center justify-center gap-2 group whitespace-nowrap";
                 btnText.textContent = "Subscribe";
                 btnIcon.className = "fa-solid fa-paper-plane transition-transform group-hover:translate-x-1 -translate-y-0.5";
                 
-                // Sections to Show
                 consentWrapper.classList.remove('hidden');
                 continentWrapper.classList.remove('hidden');
                 dataConsent.required = true;
@@ -421,22 +505,15 @@
 
             tabUnsubscribe.addEventListener('click', () => {
                 currentMode = 'unsubscribe';
-                
-                // Style Tabs
                 tabUnsubscribe.className = "flex-1 py-2 px-4 rounded-md bg-slate-800 text-white text-sm font-semibold shadow-sm transition-all border border-slate-600";
                 tabSubscribe.className = "flex-1 py-2 px-4 rounded-md text-slate-400 hover:text-slate-200 text-sm font-medium transition-all border border-transparent";
-                
-                // Form Content
                 formTitle.textContent = "Leave the Network";
                 formDescription.textContent = "We are sorry to see you go. Enter your email below to stop receiving mega-fire alerts.";
                 formIcon.className = "fa-solid fa-bell-slash text-3xl text-brand-red";
-                
-                // Button Styling
                 submitBtn.className = "w-full sm:w-auto px-8 py-4 bg-brand-red hover:bg-red-600 text-white font-semibold rounded-lg shadow-lg shadow-brand-red/30 transition-all flex items-center justify-center gap-2 group whitespace-nowrap";
                 btnText.textContent = "Unsubscribe";
                 btnIcon.className = "fa-solid fa-right-from-bracket transition-transform group-hover:translate-x-1 -translate-y-0.5";
                 
-                // Sections to Hide
                 consentWrapper.classList.add('hidden');
                 continentWrapper.classList.add('hidden');
                 dataConsent.required = false;
@@ -454,8 +531,7 @@
                     submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
                     submitBtn.disabled = true;
 
-                    // Yeni: Kıtaları topla
-                    let continentsString = "All"; // Varsayılan değer
+                    let continentsString = "All"; 
                     
                     if(currentMode === 'subscribe') {
                         const checkedBoxes = document.querySelectorAll('input[name="continent"]:checked');
@@ -469,7 +545,6 @@
                         }
                     }
 
-                    // Send data to Google Sheets API (Including action type & continents)
                     fetch(GOOGLE_APP_SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors', 
@@ -481,13 +556,12 @@
                         body: JSON.stringify({ 
                             email: email,
                             action: currentMode,
-                            continents: continentsString // Yeni eklenen kısım
+                            continents: continentsString 
                         })
                     })
                     .then(() => {
                         registeredEmailSpan.textContent = email;
                         
-                        // Update Success Screen based on mode
                         if(currentMode === 'subscribe') {
                             successTitle.textContent = "Great! Welcome to the Network.";
                             successDesc.textContent = "has been successfully added to our database.";
@@ -500,7 +574,6 @@
                             registeredEmailSpan.className = "font-semibold text-brand-red";
                         }
 
-                        // Animate Transition
                         formContainer.classList.add('opacity-0', 'scale-95');
                         
                         setTimeout(() => {
@@ -517,7 +590,6 @@
                         submitBtn.disabled = false;
                         emailInput.value = '';
                         
-                        // Kutuları temizle
                         if(currentMode === 'subscribe') {
                             dataConsent.checked = false;
                             document.querySelectorAll('input[name="continent"]:checked').forEach(box => box.checked = false);

@@ -207,6 +207,8 @@
                         <p id="formDescription" class="text-slate-400 text-lg mb-8">Get notified in seconds when critical wildfires start. Leave your email address and start receiving free intelligence now.</p>
                         
                         <form id="subscribeForm" class="flex flex-col gap-4 justify-center max-w-lg mx-auto">
+                            
+                            <!-- EMAIL INPUT -->
                             <div class="flex flex-col sm:flex-row gap-4">
                                 <div class="relative flex-grow w-full">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -228,6 +230,38 @@
                                     <span id="btnText">Subscribe</span>
                                     <i id="btnIcon" class="fa-solid fa-paper-plane transition-transform group-hover:translate-x-1 -translate-y-0.5"></i>
                                 </button>
+                            </div>
+
+                            <!-- CONTINENT SELECTION -->
+                            <div id="continentWrapper" class="mt-2 text-left bg-slate-900/50 p-4 rounded-lg border border-slate-800/50 transition-all duration-300">
+                                <label class="block text-sm font-medium text-slate-300 mb-3">Which regions do you want to monitor?</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="checkbox" name="continent" value="North America" class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-brand-blue focus:ring-brand-blue focus:ring-offset-slate-900 transition-colors cursor-pointer">
+                                        <span class="text-sm text-slate-400 group-hover:text-white transition-colors">North America</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="checkbox" name="continent" value="South America" class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-brand-blue focus:ring-brand-blue focus:ring-offset-slate-900 transition-colors cursor-pointer">
+                                        <span class="text-sm text-slate-400 group-hover:text-white transition-colors">South America</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="checkbox" name="continent" value="Europe" class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-brand-blue focus:ring-brand-blue focus:ring-offset-slate-900 transition-colors cursor-pointer">
+                                        <span class="text-sm text-slate-400 group-hover:text-white transition-colors">Europe</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="checkbox" name="continent" value="Africa" class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-brand-blue focus:ring-brand-blue focus:ring-offset-slate-900 transition-colors cursor-pointer">
+                                        <span class="text-sm text-slate-400 group-hover:text-white transition-colors">Africa</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="checkbox" name="continent" value="Asia" class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-brand-blue focus:ring-brand-blue focus:ring-offset-slate-900 transition-colors cursor-pointer">
+                                        <span class="text-sm text-slate-400 group-hover:text-white transition-colors">Asia</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="checkbox" name="continent" value="Oceania" class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-brand-blue focus:ring-brand-blue focus:ring-offset-slate-900 transition-colors cursor-pointer">
+                                        <span class="text-sm text-slate-400 group-hover:text-white transition-colors">Oceania</span>
+                                    </label>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-3 leading-relaxed italic">* If no region is selected, you will receive alerts for All Continents.</p>
                             </div>
 
                             <!-- DATA SECURITY CONSENT CHECKBOX -->
@@ -351,6 +385,7 @@
             const btnIcon = document.getElementById('btnIcon');
             const consentWrapper = document.getElementById('consentWrapper');
             const dataConsent = document.getElementById('dataConsent');
+            const continentWrapper = document.getElementById('continentWrapper'); // Yeni eklendi
             
             // Elements for dynamic Success Message
             const successTitle = document.getElementById('successTitle');
@@ -378,8 +413,9 @@
                 btnText.textContent = "Subscribe";
                 btnIcon.className = "fa-solid fa-paper-plane transition-transform group-hover:translate-x-1 -translate-y-0.5";
                 
-                // Consent Checkbox (Show & Require)
+                // Sections to Show
                 consentWrapper.classList.remove('hidden');
+                continentWrapper.classList.remove('hidden');
                 dataConsent.required = true;
             });
 
@@ -400,8 +436,9 @@
                 btnText.textContent = "Unsubscribe";
                 btnIcon.className = "fa-solid fa-right-from-bracket transition-transform group-hover:translate-x-1 -translate-y-0.5";
                 
-                // Consent Checkbox (Hide & Remove Requirement)
+                // Sections to Hide
                 consentWrapper.classList.add('hidden');
+                continentWrapper.classList.add('hidden');
                 dataConsent.required = false;
             });
 
@@ -417,7 +454,22 @@
                     submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
                     submitBtn.disabled = true;
 
-                    // Send data to Google Sheets API (Including action type)
+                    // Yeni: Kıtaları topla
+                    let continentsString = "All"; // Varsayılan değer
+                    
+                    if(currentMode === 'subscribe') {
+                        const checkedBoxes = document.querySelectorAll('input[name="continent"]:checked');
+                        let selectedContinents = [];
+                        checkedBoxes.forEach((box) => {
+                            selectedContinents.push(box.value);
+                        });
+                        
+                        if (selectedContinents.length > 0) {
+                            continentsString = selectedContinents.join(",");
+                        }
+                    }
+
+                    // Send data to Google Sheets API (Including action type & continents)
                     fetch(GOOGLE_APP_SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors', 
@@ -428,7 +480,8 @@
                         redirect: 'follow',
                         body: JSON.stringify({ 
                             email: email,
-                            action: currentMode // Tells script if it's 'subscribe' or 'unsubscribe'
+                            action: currentMode,
+                            continents: continentsString // Yeni eklenen kısım
                         })
                     })
                     .then(() => {
@@ -463,7 +516,12 @@
                         submitBtn.innerHTML = originalBtnContent;
                         submitBtn.disabled = false;
                         emailInput.value = '';
-                        if(currentMode === 'subscribe') dataConsent.checked = false;
+                        
+                        // Kutuları temizle
+                        if(currentMode === 'subscribe') {
+                            dataConsent.checked = false;
+                            document.querySelectorAll('input[name="continent"]:checked').forEach(box => box.checked = false);
+                        }
                     })
                     .catch((error) => {
                         console.error('Error:', error);

@@ -48,7 +48,6 @@
             overflow-x: hidden;
         }
 
-        /* Custom text gradients */
         .text-gradient {
             background: linear-gradient(to right, #f8fafc, #94a3b8);
             -webkit-background-clip: text;
@@ -61,7 +60,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Background grid effect */
         .bg-grid {
             background-size: 40px 40px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
@@ -70,7 +68,6 @@
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
         }
 
-        /* Glassmorphism utility */
         .glass {
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(12px);
@@ -78,7 +75,6 @@
             border: 1px solid rgba(51, 65, 85, 0.5);
         }
 
-        /* Input auto-fill styling fix for dark mode */
         input:-webkit-autofill,
         input:-webkit-autofill:hover, 
         input:-webkit-autofill:focus, 
@@ -101,8 +97,8 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#ozellikler" class="hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium">How it Works?</a>
-                        <a href="#abone-ol" class="bg-brand-blue hover:bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-lg shadow-brand-blue/30 transform hover:-translate-y-0.5">Sign Up Free</a>
+                        <a href="#features" class="hover:text-white transition-colors px-3 py-2 rounded-md text-sm font-medium">How it Works?</a>
+                        <a href="#subscribe" class="bg-brand-blue hover:bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-lg shadow-brand-blue/30 transform hover:-translate-y-0.5">Sign Up Free</a>
                     </div>
                 </div>
             </div>
@@ -110,14 +106,11 @@
     </nav>
 
     <main class="flex-grow">
-        <!-- Hero Section -->
         <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-            <!-- Background Elements -->
             <div class="absolute inset-0 z-0">
                 <div class="absolute inset-0 bg-slate-950 opacity-90 z-10"></div>
                 <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=2070&auto=format&fit=crop" alt="Satellite view of Earth" class="w-full h-full object-cover object-center" />
                 <div class="absolute inset-0 bg-grid z-20"></div>
-                <!-- Radial gradient for glow -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-blue/20 rounded-full blur-[120px] z-10 pointer-events-none"></div>
             </div>
 
@@ -137,18 +130,17 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#abone-ol" class="px-8 py-4 text-base font-semibold rounded-lg bg-gradient-to-r from-brand-orange to-brand-red text-white shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40 transition-all transform hover:-translate-y-1">
+                    <a href="#subscribe" class="px-8 py-4 text-base font-semibold rounded-lg bg-gradient-to-r from-brand-orange to-brand-red text-white shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40 transition-all transform hover:-translate-y-1">
                         Start Free Subscription <i class="fa-solid fa-arrow-right ml-2"></i>
                     </a>
-                    <a href="#ozellikler" class="px-8 py-4 text-base font-medium rounded-lg glass text-white hover:bg-slate-800 transition-all">
+                    <a href="#features" class="px-8 py-4 text-base font-medium rounded-lg glass text-white hover:bg-slate-800 transition-all">
                         Explore the Tech
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section id="ozellikler" class="py-20 bg-slate-900 border-t border-slate-800">
+        <section id="features" class="py-20 bg-slate-900 border-t border-slate-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">Why Deliktas Geo-Analytics?</h2>
@@ -156,7 +148,6 @@
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Feature 1 -->
                     <div class="glass p-8 rounded-2xl border border-slate-700/50 hover:border-brand-blue/50 transition-colors">
                         <div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center mb-6 border border-slate-600">
                             <i class="fa-solid fa-satellite text-2xl text-brand-blue"></i>
@@ -165,7 +156,6 @@
                         <p class="text-slate-400 leading-relaxed">We scan and analyze global NRT (Near Real-Time) data from VIIRS and MODIS satellites every 15 minutes.</p>
                     </div>
 
-                    <!-- Feature 2 -->
                     <div class="glass p-8 rounded-2xl border border-slate-700/50 hover:border-brand-orange/50 transition-colors">
                         <div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center mb-6 border border-slate-600">
                             <i class="fa-solid fa-filter text-2xl text-brand-orange"></i>
@@ -174,7 +164,6 @@
                         <p class="text-slate-400 leading-relaxed">Only reports verified mega-fires over 200MW (FRP). Ignores agricultural fires or industrial flares.</p>
                     </div>
 
-                    <!-- Feature 3 -->
                     <div class="glass p-8 rounded-2xl border border-slate-700/50 hover:border-green-500/50 transition-colors">
                         <div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center mb-6 border border-slate-600">
                             <i class="fa-solid fa-envelope-open-text text-2xl text-green-400"></i>
@@ -186,16 +175,13 @@
             </div>
         </section>
 
-        <!-- Subscription Section -->
-        <section id="abone-ol" class="py-24 relative overflow-hidden">
+        <section id="subscribe" class="py-24 relative overflow-hidden">
             <div class="absolute inset-0 bg-slate-950 z-0"></div>
-            <!-- Glow effect behind form -->
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-[400px] bg-brand-orange/10 rounded-full blur-[100px] z-10 pointer-events-none"></div>
 
             <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="glass rounded-3xl p-8 md:p-12 border border-slate-700 shadow-2xl relative overflow-hidden">
                     
-                    <!-- Form Container -->
                     <div id="formContainer" class="transition-all duration-500 text-center max-w-2xl mx-auto">
                         <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 border border-slate-600">
                             <i class="fa-regular fa-bell text-3xl text-brand-orange"></i>
@@ -229,7 +215,6 @@
                         </p>
                     </div>
 
-                    <!-- Success Message Container (Hidden by default) -->
                     <div id="successContainer" class="hidden transition-all duration-500 text-center max-w-xl mx-auto py-8">
                         <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/50">
                             <i class="fa-solid fa-check text-4xl text-green-400"></i>
@@ -241,7 +226,7 @@
                         <div class="bg-slate-900 rounded-lg p-6 border border-slate-700 text-left">
                             <h4 class="text-white font-medium mb-2"><i class="fa-solid fa-circle-info text-brand-orange mr-2"></i>Next Step:</h4>
                             <p class="text-slate-400 text-sm leading-relaxed">
-                                Whenever any mega-fire exceeds the 200MW threshold (the moment our automated system detects it), we will send you a detailed, HTML-rich report including meteorological data directly.
+                                Whenever any mega-fire exceeds the 200MW threshold, we will send you a detailed, HTML-rich report including meteorological data directly to your inbox.
                             </p>
                         </div>
                         <button id="resetFormBtn" class="mt-8 text-sm text-slate-400 hover:text-white transition-colors underline decoration-slate-600 underline-offset-4">
@@ -263,51 +248,15 @@
             <p class="text-slate-500 text-sm text-center md:text-left">
                 &copy; 2026 Deliktas Geo-Analytics v16.0 Deployment. All systems operating autonomously.
             </p>
-                    </div>
-
-                    <!-- Success Message Container (Hidden by default) -->
-                    <div id="successContainer" class="hidden transition-all duration-500 text-center max-w-xl mx-auto py-8">
-                        <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/50">
-                            <i class="fa-solid fa-check text-4xl text-green-400"></i>
-                        </div>
-                        <h3 class="font-display text-3xl font-bold text-white mb-4">Harika! Aramıza Hoş Geldiniz.</h3>
-                        <p class="text-slate-300 text-lg mb-6">
-                            <span id="registeredEmail" class="font-semibold text-brand-blue"></span> adresi başarıyla veritabanımıza eklendi. 
-                        </p>
-                        <div class="bg-slate-900 rounded-lg p-6 border border-slate-700 text-left">
-                            <h4 class="text-white font-medium mb-2"><i class="fa-solid fa-circle-info text-brand-orange mr-2"></i>Sıradaki Adım:</h4>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                Herhangi bir mega-yangın 200MW eşiğini aştığında (otomatik sistemimiz tespit ettiği an) size doğrudan HTML zengin formatlı, detaylı meteorolojik veriler içeren bir rapor göndereceğiz.
-                            </p>
-                        </div>
-                        <button id="resetFormBtn" class="mt-8 text-sm text-slate-400 hover:text-white transition-colors underline decoration-slate-600 underline-offset-4">
-                            Başka bir e-posta adresi ekle
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="border-t border-slate-800 bg-slate-950 py-10 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-satellite-dish text-brand-orange"></i>
-                <span class="font-display font-bold text-white">Deliktaş <span class="text-brand-blue">Geo</span></span>
-            </div>
-            <p class="text-slate-500 text-sm text-center md:text-left">
-                &copy; 2026 Deliktas Geo-Analytics v16.0 Deployment. Tüm sistemler otonom çalışmaktadır.
-            </p>
-            <div class="flex gap-4">
-                <a href="#" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
-                <a href="#" class="text-slate-500 hover:text-brand-blue transition-colors"><i class="fa-brands fa-twitter text-xl"></i></a>
-            </div>
         </div>
     </footer>
 
     <script>
-        // Form Handling Logic
+        // --- GOOGLE SHEETS INTEGRATION URL ---
+        // ⚠️ DİKKAT: BURAYA GOOGLE APPS SCRIPT WEB APP URL'NİZİ YAPIŞTIRIN! ⚠️
+        const GOOGLE_APP_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE';
+        // -------------------------------------
+
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('subscribeForm');
             const emailInput = document.getElementById('emailInput');
@@ -316,22 +265,30 @@
             const registeredEmailSpan = document.getElementById('registeredEmail');
             const resetFormBtn = document.getElementById('resetFormBtn');
 
-            // Handle Form Submission
             form.addEventListener('submit', (e) => {
-                e.preventDefault(); // Prevent page reload
+                e.preventDefault(); 
                 
                 const email = emailInput.value.trim();
                 
                 if(email) {
-                    // Simulate API Call / Processing time
                     const submitBtn = form.querySelector('button[type="submit"]');
                     const originalBtnContent = submitBtn.innerHTML;
                     
                     submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
                     submitBtn.disabled = true;
 
-                    setTimeout(() => {
-                        // Show Success UI
+                    // Send data to Google Sheets API
+                    fetch(GOOGLE_APP_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', 
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        redirect: 'follow',
+                        body: JSON.stringify({ email: email })
+                    })
+                    .then(() => {
                         registeredEmailSpan.textContent = email;
                         
                         formContainer.classList.add('opacity-0', 'scale-95');
@@ -341,21 +298,24 @@
                             formContainer.classList.remove('opacity-0', 'scale-95');
                             
                             successContainer.classList.remove('hidden');
-                            // Small delay for transition effect
                             setTimeout(() => {
                                 successContainer.classList.add('opacity-100', 'scale-100');
                             }, 50);
-                        }, 300); // Wait for fade out
+                        }, 300);
 
-                        // Reset button state silently for when they come back
                         submitBtn.innerHTML = originalBtnContent;
                         submitBtn.disabled = false;
                         emailInput.value = '';
-                    }, 800); // Simulate network delay
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        submitBtn.innerHTML = originalBtnContent;
+                        submitBtn.disabled = false;
+                        alert("An error occurred while subscribing. Please try again later.");
+                    });
                 }
             });
 
-            // Handle "Add another email" button
             resetFormBtn.addEventListener('click', () => {
                 successContainer.classList.remove('opacity-100', 'scale-100');
                 successContainer.classList.add('opacity-0', 'scale-95');

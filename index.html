@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deliktas Geo-Analytics | Free Mega-Fire Alerts</title>
     
+    <!-- SEO & Search Engine Optimization Tags -->
+    <title>Firefighting Geo-Analytics | Real-Time Wildfire Risk Map & Alerts</title>
+    <meta name="description" content="Deliktas Geo-Analytics firefighting platform. Real-time satellite spatial analysis, mega-fire risk assessment, and automated decision support tool for emergency response.">
+    <meta name="keywords" content="firefighting, geo analytics, fire safety, spatial analysis, emergency response, gis fire map, deliktas, mega fire alert, nasa firms">
+    <meta name="author" content="Deliktas Geo-Analytics">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Firefighting Geo-Analytics Platform">
+    <meta property="og:description" content="Autonomous spatial analytics and satellite early-warning tool for firefighting operations.">
+    <meta property="og:url" content="https://deliktasgeo.github.io/app/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Firefighting Geo-Analytics">
+    <meta name="twitter:description" content="Geo-analytics and satellite spatial mapping for firefighting operations.">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -480,7 +497,7 @@
 
             let currentMode = 'subscribe';
 
-            // --- TAB SWITCHERS (FIXED BUTTON & TEXT SYNC) ---
+            // --- TAB SWITCHERS ---
             tabSubscribe.addEventListener('click', () => {
                 currentMode = 'subscribe';
                 tabSubscribe.className = "flex-1 py-2 px-4 rounded-md bg-slate-800 text-white text-sm font-semibold shadow-sm transition-all border border-slate-600";
@@ -489,7 +506,6 @@
                 formDescription.textContent = "Get notified in seconds when critical wildfires start. Leave your email address and start receiving free intelligence now.";
                 formIcon.className = "fa-regular fa-bell text-3xl text-brand-orange";
                 
-                // Set explicit Blue Button & Subscribe Label
                 submitBtn.className = "w-full sm:w-auto px-8 py-4 bg-brand-blue hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg shadow-brand-blue/30 transition-all flex items-center justify-center gap-2 group whitespace-nowrap";
                 btnText.textContent = "Subscribe";
                 btnIcon.className = "fa-solid fa-paper-plane transition-transform group-hover:translate-x-1 -translate-y-0.5";
@@ -507,7 +523,6 @@
                 formDescription.textContent = "We are sorry to see you go. Enter your email below to stop receiving mega-fire alerts.";
                 formIcon.className = "fa-solid fa-bell-slash text-3xl text-brand-red";
                 
-                // Set explicit Red Button & Unsubscribe Label
                 submitBtn.className = "w-full sm:w-auto px-8 py-4 bg-brand-red hover:bg-red-600 text-white font-semibold rounded-lg shadow-lg shadow-brand-red/30 transition-all flex items-center justify-center gap-2 group whitespace-nowrap";
                 btnText.textContent = "Unsubscribe";
                 btnIcon.className = "fa-solid fa-right-from-bracket transition-transform group-hover:translate-x-1 -translate-y-0.5";
@@ -613,7 +628,7 @@
                 }
             });
 
-            // Reset Handler - Force resetting form back to Subscribe mode
+            // Reset Handler
             resetFormBtn.addEventListener('click', () => {
                 successContainer.classList.remove('opacity-100', 'scale-100');
                 successContainer.classList.add('opacity-0', 'scale-95');
@@ -625,7 +640,7 @@
                     formContainer.classList.remove('hidden');
                     setTimeout(() => {
                         formContainer.classList.add('opacity-100', 'scale-100');
-                        tabSubscribe.click(); // Reset form view to Subscribe Tab
+                        tabSubscribe.click();
                         emailInput.focus();
                     }, 50);
                 }, 300);
